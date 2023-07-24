@@ -28,52 +28,22 @@ namespace CryptoSpy
         public MainWindow()
         {
             InitializeComponent();
-            MainPage.Content = new TopCurrenciesView();
+            ContentArea.Content = new TopCurrenciesView();
         }
 
-        private async void test()
+        private void HomePage_Click(object sender, RoutedEventArgs e)
         {
-            currency = await GetData<CryptoCurrency>("https://api.coincap.io/v2/assets/bitcoin");
+            ContentArea.Content = new TopCurrenciesView();
         }
 
-        public static async Task<CryptoCurrency> GetData<T>(string url)
+        private void SearchPage_Click(object sender, RoutedEventArgs e)
         {
-            var myRoot = new CryptoCurrency();
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.Timeout = TimeSpan.FromMinutes(1);
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var ResponseString = await response.Content.ReadAsStringAsync();
-                        var ResponseObject = JsonConvert.DeserializeObject<CryptoCurrency>(ResponseString);
-
-                        MessageBox.Show("id: " + ResponseObject.data.id + " rank:" + ResponseObject.data.rank, "Information", MessageBoxButton.OK);
-
-                        return ResponseObject;
-                    }
-
-                    return myRoot;
-                }
-            }
-            catch
-            {
-                return myRoot;
-            }
+            ContentArea.Content = new CryptoSearchView();
         }
 
-        
-
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        private void CryptoPage_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.Content = new TopCurrenciesView();
-        }
-
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainPage.Content = new CryptoSearchView();
+            ContentArea.Content = new CryptoCurrencyView("bitcoin");
         }
     }
 }

@@ -7,10 +7,35 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBox FontSize="18" Padding="3 0 3 0" VerticalContentAlignment="Center" MinWidth="100" MaxWidth="300"/>
-            <ComboBox MaxWidth="50" MaxHeight="20" Margin="10 0 10 0" MinWidth="80" FontSize="18"/>
-            <Button Content="Search" Padding="7 0 7 0" FontSize="18"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0">
+            <TextBox x:Name="searchBox" Text="{Binding currencyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Padding="3 0 3 0" VerticalContentAlignment="Center" Margin="0 0 10 0" MinWidth="100" MaxWidth="300"/>
+            <Button Content="Search" Click="SearchButton_Click" Padding="7 0 7 0" FontSize="18"/>
         </StackPanel>
+        <ListBox Grid.Row="2" x:Name="SearchResultList">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_DoubleClick"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap" FontSize="15">
+                            <Run Text="{Binding name}"/>
+                            <Run Text="{Binding symbol, StringFormat='({0})'}"/>
+                        </TextBlock>
+                        <TextBlock Text="{Binding id, StringFormat='Id: {0}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

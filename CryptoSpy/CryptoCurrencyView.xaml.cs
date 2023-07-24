@@ -19,33 +19,29 @@ using System.Windows.Shapes;
 namespace CryptoSpy
 {
     /// <summary>
-    /// Interaction logic for TopCurrenciesView.xaml
+    /// Interaction logic for CryptoCurrencyView.xaml
     /// </summary>
-    public partial class TopCurrenciesView : UserControl
+    public partial class CryptoCurrencyView : UserControl
     {
-        public TopCurrenciesView()
+        CryptoCurrency cryptoCurrency { get; set; }
+
+        public CryptoCurrencyView(string id)
         {
             InitializeComponent();
-            Update();
+            cryptoCurrency = new CryptoCurrency();
+            Update(id);
         }
 
-        public async Task Update()
+        public async Task Update(string id)
         {
-
-            var topCurrencies = await GetTopCurrencies<CryptoCurrList>("https://api.coincap.io/v2/assets");
-            StackPanel stackPanel = (StackPanel)FindName("TopList");
-
-            foreach (var currency in topCurrencies.data.Take(10))
-            {
-                Label cryptoCurrency = new Label();
-                cryptoCurrency.Content = currency.rank + " " + currency.name;
-                stackPanel.Children.Add(cryptoCurrency);
-            }
+            cryptoCurrency = await GetCryptoCurrency<CryptoCurrency>("https://api.coincap.io/v2/assets/" + id);
+            this.DataContext = cryptoCurrency;
+            MessageBox.Show($"Name: {cryptoCurrency.data.name}; Id: {cryptoCurrency.data.id}; PriceUsd: {cryptoCurrency.data.priceUsd}");
         }
 
-        public static async Task<CryptoCurrList> GetTopCurrencies<T>(string url)
+        public static async Task<CryptoCurrency> GetCryptoCurrency<T>(string url)
         {
-            var cList = new CryptoCurrList();
+            var crypto = new CryptoCurrency();
             try
             {
                 using (var client = new HttpClient())
@@ -55,18 +51,18 @@ namespace CryptoSpy
                     if (response.IsSuccessStatusCode)
                     {
                         var ResponseString = await response.Content.ReadAsStringAsync();
-                        var ResponseObject = JsonConvert.DeserializeObject<CryptoCurrList>(ResponseString);
+                        var ResponseObject = JsonConvert.DeserializeObject<CryptoCurrency>(ResponseString);
 
                         return ResponseObject;
                     }
 
-                    return cList;
+                    return crypto;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return cList;
+                return crypto;
             }
         }
     }

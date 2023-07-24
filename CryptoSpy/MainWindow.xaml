@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoSpy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="CanMinimize">
+        Title="CryptoSpy" Height="470" Width="800" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130"/>
@@ -26,12 +26,11 @@
                     <Setter Property="FontSize" Value="20"/>
                 </Style>
             </StackPanel.Resources>
-            
-            <Button Content="Home" Click="HomeButton_Click"/>
-            <Button Content="Search" Click="SearchButton_Click"/>
-            <Button Content="Convert"/>
+
+            <Button Content="Home" Click="HomePage_Click"/>
+            <Button Content="Search" Click="SearchPage_Click"/>
         </StackPanel>
 
-        <ContentControl x:Name="MainPage" Grid.Column="2" Grid.Row="1"/>
+        <ContentControl x:Name="ContentArea" Grid.Column="2" Grid.Row="1"/>
     </Grid>
 </Window>
