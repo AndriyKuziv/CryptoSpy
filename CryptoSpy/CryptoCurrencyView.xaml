@@ -5,7 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CryptoSpy"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Padding="10 0 0 0" Background="#FF5A423F"
+             DataContext="{Binding RelativeSource={RelativeSource self}}">
+
+    <UserControl.Resources>
+        <Style x:Key="ColorChange" TargetType="Run">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding data.changeState}" Value="1">
+                    <Setter Property="Foreground" Value="#FF6CD234"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding data.changeState}" Value="-1">
+                    <Setter Property="Foreground" Value="#FFDC3333"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding data.changeState}" Value="0">
+                    <Setter Property="Foreground" Value="White"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -19,11 +37,12 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="{Binding data.name}" FontSize="30" FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+        <Label Content="{Binding data.name}" FontSize="30" Foreground="White" FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
 
         <StackPanel x:Name="CryptoInfoPanel" Grid.Row="2" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Foreground" Value="White"/>
                     <Setter Property="FontSize" Value="17"/>
                     <Setter Property="Margin" Value="0 5 0 5"/>
                 </Style>
@@ -39,7 +58,7 @@
             </TextBlock>
             <TextBlock>
                 <Run Text="Change in price:" FontWeight="Bold"/>
-                <Run Text="{Binding data.changePercent24Hr, StringFormat=' {0} %'}"/>
+                <Run Style="{StaticResource ColorChange}" Text="{Binding data.changePercent24Hr, StringFormat=' {0} %'}"/>
             </TextBlock>
         </StackPanel>
     </Grid>

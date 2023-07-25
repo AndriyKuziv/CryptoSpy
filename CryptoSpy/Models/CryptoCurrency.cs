@@ -22,5 +22,15 @@ namespace CryptoSpy.Models
 
         public double priceUsd { get; set; }
         public double changePercent24Hr { get; set; }
+
+        public int changeState
+        {
+            get
+            {
+                if (changePercent24Hr > 0) return 1;
+                else if (changePercent24Hr < 0) return -1;
+                else return 0;
+            }
+        }
     }
 }

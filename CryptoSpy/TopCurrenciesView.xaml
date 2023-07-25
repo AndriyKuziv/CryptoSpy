@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CryptoSpy"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -19,6 +20,11 @@
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type Label}">
                         <Setter Property="FontSize" Value="20"/>
+                        <Style.Triggers>
+                            <Trigger Property="Content" Value="{}">
+                                
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </StackPanel.Resources>
             </StackPanel>

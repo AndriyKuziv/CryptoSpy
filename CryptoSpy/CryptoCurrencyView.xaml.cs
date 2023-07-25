@@ -24,6 +24,14 @@ namespace CryptoSpy
     public partial class CryptoCurrencyView : UserControl
     {
         CryptoCurrency cryptoCurrency { get; set; }
+        public int numberType { 
+            get
+            {
+                if (cryptoCurrency != null && cryptoCurrency.data.changePercent24Hr > 0) return 1;
+                else if (cryptoCurrency != null && cryptoCurrency.data.changePercent24Hr < 0) return -1;
+                else return 0;
+            } 
+        }
 
         public CryptoCurrencyView(string id)
         {
@@ -64,5 +72,7 @@ namespace CryptoSpy
                 return crypto;
             }
         }
+
+        
     }
 }

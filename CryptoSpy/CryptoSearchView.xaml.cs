@@ -85,17 +85,13 @@ namespace CryptoSpy
         public void ListBoxItem_DoubleClick(object sender, RoutedEventArgs e)
         {
             Coin coin = (Coin)(sender as ListBoxItem).DataContext;
+
             Window coinWindow = new Window();
+
             coinWindow.Content = new CryptoCurrencyView(coin.id);
             coinWindow.Title = coin.name;
             coinWindow.Width = 500;
             coinWindow.Height = 300;
-            coinWindow.Padding = new Thickness()
-            {
-                Left = 10,
-                Top = 0,
-                Right = 0,
-            };
             coinWindow.ResizeMode = ResizeMode.CanMinimize;
 
             coinWindow.Show();

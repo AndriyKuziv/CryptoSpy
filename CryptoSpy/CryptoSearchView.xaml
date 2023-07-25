@@ -6,6 +6,15 @@
              xmlns:local="clr-namespace:CryptoSpy"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="SearchButton" TargetType="Button">
+            <Button Content="{TemplateBinding Content}" FontSize="18" FontWeight="DemiBold" Foreground="White"
+                    Style="{StaticResource RoundButton}" Background="#FF8D5C4C" Width="80">
+            </Button>
+        </ControlTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,7 +25,7 @@
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0">
             <TextBox x:Name="searchBox" Text="{Binding currencyName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Padding="3 0 3 0" VerticalContentAlignment="Center" Margin="0 0 10 0" MinWidth="100" MaxWidth="300"/>
-            <Button Content="Search" Click="SearchButton_Click" Padding="7 0 7 0" FontSize="18"/>
+            <Button Content="Search" Click="SearchButton_Click" Template="{StaticResource SearchButton}" />
         </StackPanel>
         <ListBox Grid.Row="2" x:Name="SearchResultList">
             <ListBox.ItemContainerStyle>
