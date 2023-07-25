@@ -28,7 +28,7 @@ namespace CryptoSpy
         public CryptoCurrencyView(string id)
         {
             InitializeComponent();
-            cryptoCurrency = new CryptoCurrency();
+
             Update(id);
         }
 
@@ -36,7 +36,6 @@ namespace CryptoSpy
         {
             cryptoCurrency = await GetCryptoCurrency<CryptoCurrency>("https://api.coincap.io/v2/assets/" + id);
             this.DataContext = cryptoCurrency;
-            MessageBox.Show($"Name: {cryptoCurrency.data.name}; Id: {cryptoCurrency.data.id}; PriceUsd: {cryptoCurrency.data.priceUsd}");
         }
 
         public static async Task<CryptoCurrency> GetCryptoCurrency<T>(string url)

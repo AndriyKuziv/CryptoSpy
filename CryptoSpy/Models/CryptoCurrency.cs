@@ -18,9 +18,9 @@ namespace CryptoSpy.Models
         public int rank { get; set; }
         public string symbol { get; set; }
         public string name { get; set; }
-        public decimal volumeUsd24Hr { get; set; }
+        public double volumeUsd24Hr { get; set; }
 
-        public decimal priceUsd { get; set; }
-        public decimal changePercent24Hr { get; set; }
+        public double priceUsd { get; set; }
+        public double changePercent24Hr { get; set; }
     }
 }

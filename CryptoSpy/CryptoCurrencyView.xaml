@@ -8,25 +8,39 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
 
-        <Label Content="A bit coin" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <Label Content="{Binding data.name}" FontSize="30" FontWeight="Bold" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
 
-        <StackPanel x:Name="CryptoInfoPanel" Grid.Row="1">
+        <StackPanel x:Name="CryptoInfoPanel" Grid.Row="2" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="FontSize" Value="10"/>
+                    <Setter Property="FontSize" Value="17"/>
                     <Setter Property="Margin" Value="0 5 0 5"/>
                 </Style>
             </StackPanel.Resources>
 
             <TextBlock>
-                <Run Text="{Binding cryptoCurrency.data.priceUsd}"/>
+                <Run Text="Price (USD): " FontWeight="Bold"/>
+                <Run Text="{Binding data.priceUsd}"/>
             </TextBlock>
-            <TextBlock Text="{Binding volumeUsd24Hr, StringFormat='Volume for the last 24 hours (USD): {0}'}"/>
-            <TextBlock Text="{Binding changePercent24Hr, StringFormat='Change in price: {0}%'}"/>
+            <TextBlock>
+                <Run Text="Volume for the last 24 hours (USD): " FontWeight="Bold"/>
+                <Run Text="{Binding data.volumeUsd24Hr}"/>
+            </TextBlock>
+            <TextBlock>
+                <Run Text="Change in price:" FontWeight="Bold"/>
+                <Run Text="{Binding data.changePercent24Hr, StringFormat=' {0} %'}"/>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>
